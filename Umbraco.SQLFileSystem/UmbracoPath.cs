@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UmbracoSQLMedia.Logic
+namespace Umbraco.SQLFileSystem.Logic
 {
     class UmbracoPath
     {

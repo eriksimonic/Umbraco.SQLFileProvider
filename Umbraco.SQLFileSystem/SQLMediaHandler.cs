@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Umbraco.Core;
 
-namespace UmbracoSQLMedia.Logic
+namespace Umbraco.SQLFileSystem.Logic
 {
     // A handler to return the image. The hander is installed via the web.config to match the handler path that the IFileSystem code
     // is initiated with, eg /SQLMedia.axd?path=
@@ -20,7 +21,7 @@ namespace UmbracoSQLMedia.Logic
 
         public void ProcessRequest(HttpContext context)
         {
-            using (FilestreamRepository fr = new FilestreamRepository(ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString, "Media"))
+            using (FilestreamRepository fr = new FilestreamRepository(ApplicationContext.Current.DatabaseContext.ConnectionString, "Media"))
             {
                 string path = context.Request.Params["path"];
 

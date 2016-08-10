@@ -1,0 +1,17 @@
+packages/
+Umbraco.SQLFileSystem/bin/Debug/
+Umbraco.Test/App_Data/
+Umbraco.Test/bin/
+Umbraco.Test/media/
+Umbraco.Test/obj/
+Umbraco.SQLFileSystem/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+Umbraco.SQLFileSystem/obj/
+Umbraco.Test/Umbraco/
+Umbraco.Test/App_Plugins/ModelsBuilder/
+Umbraco.Test/App_Plugins/Grid/
+Umbraco.Test/Umbraco_Client/
+Umbraco.Test/Views/
+Umbraco.Test/Config/
+Umbraco.Test/css/
+Umbraco.Test/js/
+.vs/

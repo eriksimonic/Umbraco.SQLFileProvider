@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using Umbraco.Core.IO;
 
-namespace UmbracoSQLMedia.Logic
+namespace Umbraco.SQLFileSystem.Logic
 {
     public class FileSystem : IFileSystem
     {

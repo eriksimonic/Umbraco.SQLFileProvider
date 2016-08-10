@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace UmbracoSQLMedia.Logic
+namespace Umbraco.SQLFileSystem.Logic
 {
     // Do the work off adding and retrieving files from the database
     class FilestreamRepository : IDisposable
