@@ -3,24 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.SQLFileSystem", "Umbraco.SQLFileSystem\Umbraco.SQLFileSystem.csproj", "{A5594646-A395-41CC-81DE-BF5D261B8169}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Test", "Umbraco.Test\Umbraco.Test.csproj", "{8FA7B549-E6EC-47AD-A147-981F1197D1C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.SQLFileSystem", "Umbraco.Test\Umbraco.SQLFileSystem.csproj", "{8FA7B549-E6EC-47AD-A147-981F1197D1C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5594646-A395-41CC-81DE-BF5D261B8169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5594646-A395-41CC-81DE-BF5D261B8169}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5594646-A395-41CC-81DE-BF5D261B8169}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5594646-A395-41CC-81DE-BF5D261B8169}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Debug|x64.ActiveCfg = Debug|x64
+		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Debug|x64.Build.0 = Debug|x64
 		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Release|x64.ActiveCfg = Release|x64
+		{8FA7B549-E6EC-47AD-A147-981F1197D1C8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

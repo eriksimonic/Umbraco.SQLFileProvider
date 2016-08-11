@@ -1,4 +1,4 @@
-﻿namespace Umbraco.Test.Controllers.Models
+﻿namespace Umbraco.SQLFileSystem.Controllers.Models
 {
     public class MediaPublishModel
     {

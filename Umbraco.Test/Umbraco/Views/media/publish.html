@@ -1,10 +1,30 @@
 ﻿<div class="umb-dialog umb-pane" ng-controller="Umbraco.Dashboard.MediaPublish">
-    <div class="umb-dialog-body" auto-scale="90">
-        
+    <div class="umb-dialog-body" auto-scale="90" ng-hide="currentNode.loadingInline !== 1">
         <p class="umb-abstract">
-            <localize key="defaultdialogs_confirmdelete">Are you sure you want to delete</localize> <strong>{{currentNode.name}}</strong> ?
+            Are you shure to publish
+            <strong>{{currentNode.name}}</strong> ?
         </p>
-
+        <label ng-hide="showMasPublish()"><input type="checkbox" ng-model="folderNode.publishChildren" /> Publish all children</label>
         <umb-confirm on-confirm="publishNode" on-cancel="cancel"></umb-confirm>
     </div>
+
+     <div id="animDiv" class="propertyDiv" ng-hide="currentNode.loadingInline !== 2" style="overflow:hidden">
+            <div>
+                <p>Publishing in progress - please wait...</p>
+                <div id="body_ProgBar1" class="umb-loader"></div>
+                <br>
+            </div>
+     </div>
+     <div class="" ng-hide="currentNode.loadingInline !== 3">
+            <p class="umb-abstract">
+                Faild to publish <strong>{{currentNode.name}}</strong> 
+            </p>
+     </div>
+
+      <div class="" ng-hide="currentNode.loadingInline !== 4">
+            <p class="umb-abstract">
+                All done!
+            </p>
+     </div>
+
 </div>

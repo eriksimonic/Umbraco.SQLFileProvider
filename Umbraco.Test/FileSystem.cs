@@ -11,9 +11,9 @@ namespace Umbraco.SQLFileSystem.Logic
     {
         public SQLFileSystem SQLFileSystem { get; set; }
 
-        public FileSystem(string tableName, string handlerPath)
+        public FileSystem(string virtualRoot)
         {
-            this.SQLFileSystem = new SQLFileSystem(tableName, handlerPath);
+            this.SQLFileSystem = new SQLFileSystem(virtualRoot);
         }
 
         public void AddFile(string path, Stream stream)

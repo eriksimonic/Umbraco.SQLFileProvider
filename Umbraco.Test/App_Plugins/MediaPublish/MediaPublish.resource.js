@@ -1,18 +1,15 @@
 ﻿function mediaPublishResource($q, $http, umbRequestHelper) {
-
     return {
-     
-        publishById: function (id) {
+        publishById: function (id, children) {
             return umbRequestHelper.resourcePromise(
-                   $http.post(
-                "backoffice/MediapublishApi/MediaPublish/PublishById" 
-                ));
-                         //umbRequestHelper.post(
-                         //      ,
-                         //      [{ id: id }])));
+                   $http.get( "backoffice/Api/MediaPublishingApi/PublishBsyId", {
+                                params: { nodeId: id, includeChildren: children || false }
+                   }));
+
+            //umbRequestHelper.post(
+            //      ,
+            //      [{ id: id }])));
         },
-
-
 
         doSomething: function () {
             alert('A');

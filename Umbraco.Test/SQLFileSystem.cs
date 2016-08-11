@@ -1,5 +1,4 @@
 
-using MimeTypes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,16 +17,16 @@ namespace Umbraco.SQLFileSystem.Logic
     {
         public string ConnectionString { get; set; }
         public string TableName { get; set; }
-        public string HandlerPath { get; set; }
+        public string VirtualRoot { get; set; }
       //  public ILogger Logger { get; set; }
 
-        public SQLFileSystem(string tableName, string handlerPath)
+        public SQLFileSystem(string virtualRoot)
         {
             
 
             this.ConnectionString = ApplicationContext.Current.DatabaseContext.ConnectionString; //ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString;
-            this.TableName = tableName;
-            this.HandlerPath = handlerPath;
+          //  this.TableName = tableName;
+            this.VirtualRoot = virtualRoot;
 
           //  string log = HostingEnvironment.MapPath("~/") + "Log-{Date}.txt";
 
@@ -43,7 +42,7 @@ namespace Umbraco.SQLFileSystem.Logic
 
             if (UmbracoPath.MediaPathParse(path, out directory, out filename))
             {
-                string mimeType =  MimeTypeMap.GetMimeType(Path.GetExtension(path));
+                string mimeType = MimeTypes.GetMimeType(Path.GetExtension(path));
 
                 using (FilestreamRepository fsr = new FilestreamRepository(this.ConnectionString, this.TableName))
                 {
@@ -114,7 +113,7 @@ namespace Umbraco.SQLFileSystem.Logic
         {
           //  this.Logger.Information("FileExists({0})", path);
 
-            path = UmbracoPath.MediaUrlParse(this.HandlerPath, path);
+            path = UmbracoPath.MediaUrlParse(this.VirtualRoot, path);
 
             using (FilestreamRepository fsr = new FilestreamRepository(this.ConnectionString, this.TableName))
             {
@@ -141,7 +140,7 @@ namespace Umbraco.SQLFileSystem.Logic
         {
          //   this.Logger.Information("GetLastModified({0})", path);
 
-            path = UmbracoPath.MediaUrlParse(this.HandlerPath, path);
+            path = UmbracoPath.MediaUrlParse(this.VirtualRoot, path);
 
             using (FilestreamRepository fsr = new FilestreamRepository(this.ConnectionString, this.TableName))
             {
@@ -171,13 +170,13 @@ namespace Umbraco.SQLFileSystem.Logic
             //{0}SQLMedia.axd?path={1}
           //  this.Logger.Information("GetUrl({0})", path);
 
-            if (path.StartsWith(this.HandlerPath))
+            if (path.StartsWith(this.VirtualRoot))
             {
                 return path;
             }
             else
             {
-                return this.HandlerPath + path;
+                return this.VirtualRoot + path;
             }
         }
 
@@ -185,7 +184,7 @@ namespace Umbraco.SQLFileSystem.Logic
         {
           //  this.Logger.Information("OpenFile({0})", path);
 
-            path = UmbracoPath.MediaUrlParse(this.HandlerPath, path);
+            path = UmbracoPath.MediaUrlParse(this.VirtualRoot, path);
 
             using (FilestreamRepository fsr = new FilestreamRepository(this.ConnectionString, this.TableName))
             {
