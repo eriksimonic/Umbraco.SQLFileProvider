@@ -15,18 +15,14 @@ namespace Umbraco.SQLFileSystem.Logic
             bool success = false;
             directory = 0;
             filename = null;
-
             if (String.IsNullOrWhiteSpace(path) == false)
             {
-                string[] parts = path.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (parts != null && parts.Length == 2)
+                string[] parts =  path.Split(new char[] { '/','\\' }, StringSplitOptions.RemoveEmptyEntries) ;
+                if (parts != null && parts.Length >= 2)
                 {
-                    if (int.TryParse(parts[0], out directory))
-                    {
-                        filename = parts[1];
-                        success = true;
-                    }
+                    Array.Reverse(parts);
+                    filename = parts[0];
+                    success = int.TryParse(parts[1], out directory);
                 }
             }
 

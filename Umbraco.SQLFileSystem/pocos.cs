@@ -42,8 +42,8 @@ namespace Umbraco.SQLFileSystem
             [IndexAttribute(IndexTypes.UniqueNonClustered, Name = "idx_VersionId")]
             public Guid VersionId { get; set; }
 
-            [IndexAttribute(IndexTypes.UniqueNonClustered, Name = "idx_ContentNodeId")]
-            public int ContentNodeId { get; set; }
+            [IndexAttribute(IndexTypes.NonClustered, Name = "idx_ContentNodeId")]
+            public Guid ContentNodeId { get; set; }
         }
 
     }

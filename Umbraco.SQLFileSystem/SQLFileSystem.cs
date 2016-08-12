@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Hosting;
 using Umbraco.Core;
 using Umbraco.Core.IO;
@@ -15,27 +16,16 @@ namespace Umbraco.SQLFileSystem.Logic
 {
     public class SQLFileSystem
     {
-        public string ConnectionString { get; set; }
-        public string TableName { get; set; }
         public string VirtualRoot { get; set; }
       //  public ILogger Logger { get; set; }
 
         public SQLFileSystem(string virtualRoot)
         {
-            
-
-            this.ConnectionString = ApplicationContext.Current.DatabaseContext.ConnectionString; //ConfigurationManager.ConnectionStrings["umbracoDbDSN"].ConnectionString;
-          //  this.TableName = tableName;
             this.VirtualRoot = virtualRoot;
-
-          //  string log = HostingEnvironment.MapPath("~/") + "Log-{Date}.txt";
-
-          
         }
 
         public void AddFile(string path, System.IO.Stream stream, bool overrideIfExists)
         {
-         //   this.Logger.Information("AddFile({0}, {1}, {2})", path, stream, overrideIfExists);
 
             int directory;
             string filename;
@@ -46,41 +36,11 @@ namespace Umbraco.SQLFileSystem.Logic
 
                 using (FilestreamRepository fsr = new FilestreamRepository())
                 {
-                    // bool exists = fsr.FileExists(path);
-
                     fsr.AddFile(directory, path, mimeType, filename, stream);
-
-                    //if (overrideIfExists)
-                    //{
-                    //    fsr.AddFile(directory, path, mimeType, filename, stream);
-                    //    //if (exists)
-                    //    //{
-                    //    //    fsr.UpdateFile(path, stream, filename, mimeType);
-                    //    //}
-                    //    //else
-                    //    //{
-                            
-                    //    //}
-                    //}
-                    //else
-                    //{
-                    //    if (exists)
-                    //    {
-                    //        throw new Exception(String.Format("File '{0}' already exists", path));
-                    //    }
-                    //    else
-                    //    {
-                            
-                    //    }
-                    //}
                 }
             }
         }
 
-        //internal IEnumerable<string> GetFiles(string path)
-        //{
-        //    return GetFiles(path, null);
-        //}
         public IEnumerable<string> GetFiles(string path, string filter = null)
         {
             path = UmbracoPath.MediaUrlParse(this.VirtualRoot, path);
@@ -94,14 +54,11 @@ namespace Umbraco.SQLFileSystem.Logic
 
         public void AddFile(string path, System.IO.Stream stream)
         {
-         //   this.Logger.Information("AddFile({0}, {1})", path, stream);
-
             this.AddFile(path, stream, true);
         }
 
         public void DeleteDirectory(string directory, bool recursive)
         {
-           // this.Logger.Information("DeleteDirectory({0}, {1})", directory, recursive);
 
             int dir;
 
@@ -166,36 +123,31 @@ namespace Umbraco.SQLFileSystem.Logic
             }
         }
 
+        internal string GetServerRelativePath(string path)
+        {
+            path = path.Replace(@"\", "/");
+
+            var mediaFolder = IOHelper.ResolveUrl(this.VirtualRoot);
+            if (path.StartsWith(mediaFolder)) return path;
+
+            if (path.StartsWith(this.VirtualRoot)) return IOHelper.ResolveUrl(path);
+
+            return IOHelper.ResolveUrl(string.Concat(this.VirtualRoot.TrimEnd('/'), "/", path.TrimStart('/')));
+        }
+
+
         public string GetFullPath(string path)
         {
-         //   this.Logger.Information("GetFullPath({0})", path);
-            //return "/" + path;
-            return path;
+            return this.GetServerRelativePath(path);
         }
 
         public string GetRelativePath(string fullPathOrUrl)
         {
-         //   this.Logger.Information("GetRelativePath({0})", fullPathOrUrl);
-
-            //return String.Format(this.HandlerPath, fullPathOrUrl);
-            return fullPathOrUrl;
+            return this.GetServerRelativePath(fullPathOrUrl);
         }
-
-        // Get url eg /SQLMedia.axd?path={0}
-        // path = "1001\img_2227.jpg"
         public string GetUrl(string path)
         {
-            //{0}SQLMedia.axd?path={1}
-          //  this.Logger.Information("GetUrl({0})", path);
-
-            if (path.StartsWith(this.VirtualRoot))
-            {
-                return path;
-            }
-            else
-            {
-                return this.VirtualRoot + path;
-            }
+            return this.GetServerRelativePath(path);
         }
 
         public System.IO.Stream OpenFile(string path)

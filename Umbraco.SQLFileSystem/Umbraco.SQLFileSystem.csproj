@@ -404,6 +404,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\MediaPublishingApiController.cs" />
     <Compile Include="Controllers\Models\MediaPublishModel.cs" />
     <Compile Include="Extensions.cs" />

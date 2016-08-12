@@ -15,8 +15,11 @@ namespace Umbraco.SQLFileSystem.Logic
     {
         private DatabaseContext db;
 
+        public string HandlerPath { get; private set; }
+
         internal FilestreamRepository()
         {
+            this.HandlerPath = "~/media/";
             this.db = ApplicationContext.Current.DatabaseContext;
         }
 
@@ -42,7 +45,7 @@ namespace Umbraco.SQLFileSystem.Logic
             item.VersionId = Guid.NewGuid();
             item.Filename = filename;
             item.MimeType = mimeType;
-            item.Path = path;
+            item.Path = path.Replace("\\", "/");
             item.Directory = directory;
             item.Data = fileData;
             item.DataLength = streamLength;
@@ -51,7 +54,7 @@ namespace Umbraco.SQLFileSystem.Logic
             item.CreatorId = UmbracoContext.Current.Security.CurrentUser.Id;
             item.PublisherId = -1;
             item.Modified = item.Created;
-            item.ContentNodeId = -1;
+            item.ContentNodeId = Guid.Empty;
 
             db.Database.Insert(item);
 
@@ -75,21 +78,25 @@ namespace Umbraco.SQLFileSystem.Logic
                                     .ToList();
         }
 
-        internal void UpdateMediaWithId(string path, int id)
+        internal void UpdateMediaWithId(string path, Guid InvariantId)
         {
             if (string.IsNullOrEmpty(path)) return;
-            if (id == 0) return;
+            if (InvariantId.Equals(Guid.Empty))
+                throw new Exception("Invaraint ID id incorect");
 
-            var res =
-            this.db.Database.Update<pocos.MediaObjectStorage>(new Sql().From(pocos.TABLE_MediaObjectStorage).Where("Path=@0", new object[] {
-                path
-            }));
+            int dir = -1;
+            string filename;
 
-            
+            UmbracoPath.MediaPathParse(path, out dir, out filename);
+
+            this.db.Database.Execute(string.Concat("UPDATE ", pocos.TABLE_MediaObjectStorage, " SET ContentNodeId=@0 WHERE Directory=@1"), new object[] {
+                InvariantId,
+                dir
+            });
         }
 
 
-        internal void DeleteByMediaId(int id)
+        internal void DeleteByMediaId(Guid id)
         {
            
 
@@ -239,6 +246,12 @@ namespace Umbraco.SQLFileSystem.Logic
         {
 
             //UmbracoPath.MediaUrlParse(this.
+            if (!path.StartsWith("~"))
+                path = "~" + path;
+
+            path = 
+            UmbracoPath.MediaUrlParse(this.HandlerPath, path);
+
 
             var item = 
             this.db.Database.Query<pocos.MediaObjectStorage>(new Sql().Select(new object[] { "MimeType", "Data" })

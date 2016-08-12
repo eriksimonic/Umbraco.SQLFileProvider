@@ -23,20 +23,32 @@ namespace Umbraco.SQLFileSystem.Logic
         {
             using (FilestreamRepository fr = new FilestreamRepository())
             {
-                string path = context.Request.Params["path"];
-
-                if (String.IsNullOrEmpty(path))
+                var path = context.Request.Url.AbsolutePath;
+                if (path.StartsWith("/media/", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    // return 404
+                    if (String.IsNullOrEmpty(path))
+                    {
+                        context.Response.StatusCode = 404;
+                    }
+
+                    string mimeType;
+                    MemoryStream s = null;
+                    try
+                    {
+                        s = fr.GetFileStream(path, out mimeType);
+                    }
+                    catch
+                    {
+                        context.Response.StatusCode = 404;
+                        context.Response.End();
+                        return;
+                    }
+
+
+                    context.Response.ContentType = mimeType;
+                    context.Response.AppendHeader("Content-Length", s.Length.ToString());
+                    context.Response.BinaryWrite(s.ToArray());
                 }
-
-                string mimeType;
-
-                MemoryStream s = fr.GetFileStream(path, out mimeType);
-
-                context.Response.ContentType = mimeType;
-                context.Response.AppendHeader("Content-Length", s.Length.ToString());
-                context.Response.BinaryWrite(s.ToArray());
             }
         }
     }
