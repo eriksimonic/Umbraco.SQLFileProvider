@@ -1,0 +1,58 @@
+﻿<div class="umb-dialog umb-pane" ng-controller="Umbraco.Dashboard.MediaPublish.History">
+    <table style="width:100%">
+        <tr ng-repeat="model in history">
+            <td>
+                <i class="{{$parent.getStatus(model)}}" style="font-size:25px"></i>
+            </td>
+            <td>
+                <div><strong>{{model.Publisher}}</strong> | {{model.Created | date : 'medium'}}</div>
+                <i>{{model.Comment}}</i>
+            </td>
+            <td align="right">
+                <button class="btn btn-link" 
+                        ng-click="$parent.revertTo($parent.currentNode.id, model.Id)"
+                        ng-hide="model.StatusCode === 2"
+                        >
+                    <span>Revert</span>
+                </button>
+            </td>
+        </tr>
+        <tfoot>
+            <tr>
+                <td colspan="3" align="right">
+                    <button class="btn-primary btn" ng-click="cancel()">
+                        <span>Close</span>
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!--<div class="umb-dialog-body" auto-scale="90" ng-hide="currentNode.loadingInline !== 1">
+        <p class="umb-abstract">
+            Are you shure to publish
+            <strong>{{currentNode.name}}</strong> ?
+        </p>
+        <label ng-hide="showMasPublish()"><input type="checkbox" ng-model="folderNode.publishChildren" /> Publish all children</label>
+        <umb-confirm on-confirm="publishNode" on-cancel="cancel"></umb-confirm>
+    </div>
+
+     <div id="animDiv" class="propertyDiv" ng-hide="currentNode.loadingInline !== 2" style="overflow:hidden">
+            <div>
+                <p>Publishing in progress - please wait...</p>
+                <div id="body_ProgBar1" class="umb-loader"></div>
+                <br>
+            </div>
+     </div>
+     <div class="" ng-hide="currentNode.loadingInline !== 3">
+            <p class="umb-abstract">
+                Faild to publish <strong>{{currentNode.name}}</strong>
+            </p>
+     </div>
+
+      <div class="" ng-hide="currentNode.loadingInline !== 4">
+            <p class="umb-abstract">
+                All done!
+            </p>
+     </div>-->
+</div>

@@ -1,0 +1,30 @@
+﻿<div class="umb-dialog umb-pane" ng-controller="Umbraco.Dashboard.MediaPublish.History">
+    <table style="width:100%">
+        <tr ng-repeat="model in history">
+            <td>
+                <i class="{{$parent.getStatus(model)}}" style="font-size:25px"></i>
+            </td>
+            <td>
+                <div><strong>{{model.Publisher}}</strong> | {{model.Created | date : 'medium'}}</div>
+                <i>{{model.Comment}}</i>
+            </td>
+        </tr>
+        <tfoot>
+            <tr>
+                <td colspan="2" align="right">
+                    <button class="btn-default btn" ng-click="cancel()">
+                        <span>Close</span>
+                    </button>
+                    <button class="btn-primary btn" ng-click="purgeHancel()">
+                        <span>Purge</span>
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <br />
+    <br />
+    <i>
+        By purging the history only the current published item will remain.
+    </i>
+</div>

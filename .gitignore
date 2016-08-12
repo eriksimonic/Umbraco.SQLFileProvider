@@ -15,3 +15,9 @@ Umbraco.Test/Config/
 Umbraco.Test/css/
 Umbraco.Test/js/
 .vs/
+Umbraco.SQLFileSystem/App_Data/TEMP/
+Umbraco.SQLFileSystem/bin/
+Umbraco.SQLFileSystem/Config/Lang/
+Umbraco.SQLFileSystem/Umbraco/
+Umbraco.SQLFileSystem/Umbraco_Client/
+Umbraco.SQLFileSystem/Views/
